@@ -38,29 +38,30 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:fontFamily="serif"
-        android:text="Explore Languages"
-        android:textAlignment="center"
+        android:text=" Explore Languages"
+        android:textAlignment="textStart"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rv_genre"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_language"
-        app:layout_constraintVertical_bias="0.433" />
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginLeft="5dp" />
 
     <View
-        android:layout_width="200dp"
+        android:layout_width="165dp"
         android:layout_height="3dp"
         android:layout_margin="3dp"
         android:layout_marginTop="15dp"
         android:background="@color/gray"
         android:textAlignment="textStart"
-        app:dividerColor="@color/gray"
+        app:color="@color/gray"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Language" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_genre"
@@ -83,8 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:fontFamily="serif"
-        android:text="Explore Genre's"
-        android:textAlignment="center"
+        android:text=" Explore Genre's"
+        android:textAlignment="textStart"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rvAllSongs"
@@ -94,17 +95,17 @@
 
 
     <View
-        android:layout_width="200dp"
+        android:layout_width="130dp"
         android:layout_height="3dp"
         android:layout_margin="3dp"
         android:layout_marginTop="15dp"
         android:background="@color/gray"
         android:textAlignment="textStart"
-        app:dividerColor="@color/gray"
+        app:color="@color/gray"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_genre" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllSongs"

@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import javax.inject.Inject
 
 class SongAdapter @Inject constructor(
-    private val glide: RequestManager
+     val glide: RequestManager
 ) : BaseSongAdapter(R.layout.list_item) {
 
     override val differ = AsyncListDiffer(this, diffCallback)
