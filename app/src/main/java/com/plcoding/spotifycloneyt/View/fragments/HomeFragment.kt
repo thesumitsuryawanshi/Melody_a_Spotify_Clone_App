@@ -66,14 +66,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun RV_Language() {
-        val LanguageName =             listOf("English", "Hindi", "Panjabi", "Korean", "Marathi" )
+        val LanguageName =             listOf("English", "Panjabi", "Hindi", "Marathi", "Korean"  )
 
         val imgList = listOf(
             R.drawable.eng,
-            R.drawable.hindi,
             R.drawable. panjabi,
-            R.drawable.korian,
+            R.drawable.hindi,
             R.drawable.marathi,
+            R.drawable.korian,
         )
 
         val adapter =rv_Language_Adapter(LanguageName, imgList, requireContext() )

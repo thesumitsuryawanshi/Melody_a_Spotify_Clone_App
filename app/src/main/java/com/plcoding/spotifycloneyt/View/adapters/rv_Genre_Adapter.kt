@@ -37,7 +37,10 @@ constructor
             .into(holder.Img)
 
         holder.itemView.setOnClickListener {
+
+            
             Toast.makeText(context, "App working", Toast.LENGTH_SHORT).show()
+
         }
 
     }

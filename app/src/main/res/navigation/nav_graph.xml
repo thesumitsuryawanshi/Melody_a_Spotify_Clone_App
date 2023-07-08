@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -14,4 +16,13 @@
 
     <action android:id="@+id/globalActionToSongFragment"
         app:destination="@id/songFragment" />
+    <fragment
+        android:id="@+id/exploreSongsFrag"
+        android:name="com.plcoding.spotifycloneyt.ExploreSongsFrag"
+        android:label="fragment_explore_songs"
+        tools:layout="@layout/fragment_explore_songs" />
+
+    <action android:id="@+id/globalActionToexploreSongsFrag"
+        app:destination="@id/exploreSongsFrag" />
+
 </navigation>
