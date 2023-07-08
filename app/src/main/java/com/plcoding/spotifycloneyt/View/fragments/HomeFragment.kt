@@ -66,14 +66,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun RV_Language() {
-        val LanguageName =
-            listOf("English", "Hindi", "Marathi", "Tamil", "Telugu")
+        val LanguageName =             listOf("English", "Hindi", "Panjabi", "Korean", "Marathi" )
+
         val imgList = listOf(
-            R.drawable.ic_play,
-            R.drawable.ic_pause,
-            R.drawable.ic_home,
-            R.drawable.ic_play,
-            R.drawable.ic_pause,
+            R.drawable.eng,
+            R.drawable.hindi,
+            R.drawable. panjabi,
+            R.drawable.korian,
+            R.drawable.marathi,
         )
 
         val adapter =rv_Language_Adapter(LanguageName, imgList, requireContext() )
@@ -83,14 +83,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun RV_genre() {
-        val GenreName =
-            listOf("Love","Electronics","Romantic", "90's Heats", "The Golden Era")
+        val GenreName =    listOf("Love","Metal","Romantic", "90's Hits", "OLD is GOLD")
+
+
         val imgList = listOf(
-            R.drawable.ic_play,
-            R.drawable.ic_pause,
-            R.drawable.ic_home,
-            R.drawable.ic_play,
-            R.drawable.ic_pause,
+            R.drawable.love,
+            R.drawable.metal,
+            R.drawable.romance,
+            R.drawable.nienteens_hits,
+            R.drawable.goldenera,
         )
 
         val adapter =  rv_Genre_Adapter(GenreName, imgList, requireContext())

@@ -4,13 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.databinding.HRvCategoriesBinding
-import kotlinx.android.synthetic.main.list_item.view.*
 import javax.inject.Inject
 
 class rv_Genre_Adapter
@@ -56,7 +52,6 @@ constructor
         var Img = binding.ivCategories
         var rootView = binding.root
     }
-
 
 
 }
