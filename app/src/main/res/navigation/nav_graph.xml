@@ -18,7 +18,7 @@
         app:destination="@id/songFragment" />
     <fragment
         android:id="@+id/exploreSongsFrag"
-        android:name="com.plcoding.spotifycloneyt.ExploreSongsFrag"
+        android:name="com.plcoding.spotifycloneyt.View.fragments.ExploreSongsFrag"
         android:label="fragment_explore_songs"
         tools:layout="@layout/fragment_explore_songs" />
 

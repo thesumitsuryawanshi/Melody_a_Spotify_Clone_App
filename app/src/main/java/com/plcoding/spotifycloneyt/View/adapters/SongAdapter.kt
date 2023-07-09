@@ -1,49 +1,63 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
-import androidx.recyclerview.widget.AsyncListDiffer
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.plcoding.spotifycloneyt.R
-import kotlinx.android.synthetic.main.list_item.view.*
+import com.plcoding.spotifycloneyt.Model.data.entities.Song
+import com.plcoding.spotifycloneyt.databinding.ListItemBinding
 import javax.inject.Inject
 
 class SongAdapter @Inject constructor(
-     val glide: RequestManager
-) : BaseSongAdapter(R.layout.list_item) {
+    val glide: RequestManager, val songs: List<Song>, private val listener: SongCLicked?
+) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
-    override val differ = AsyncListDiffer(this, diffCallback)
+
+    lateinit var binding: ListItemBinding
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
+
+        val view = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewholder = SongViewHolder(view)
+        return viewholder
+    }
+
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            tvPrimary.text = song.title
-            tvSecondary.text = song.subTitle
-            glide.load(song.imgUrl).into(ivItemImage)
+            binding.tvPrimary.text = song.title
+            binding.tvSecondary.text = song.subTitle
+            glide.load(song.imgUrl).into(binding.ivItemImage)
 
-            setOnClickListener {
-                onItemClickListener?.let { click ->
-                    click(song)
-                }
+
+
+            holder.itemView.rootView.setOnClickListener {
+
+                listener?.SongCLicked(song)
             }
         }
     }
 
+    override fun getItemCount(): Int {
+        return songs.size
+    }
+
+
+    class SongViewHolder(binding: ListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        var name = binding.tvPrimary
+        var Img = binding.tvSecondary
+        var rootView = binding.root
+    }
+
+    interface SongCLicked {
+
+        @SuppressLint("NotConstructor")
+        fun SongCLicked(song: Song){
+
+        }
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

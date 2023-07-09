@@ -1,18 +1,18 @@
 package com.plcoding.spotifycloneyt.Viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.plcoding.spotifycloneyt.other.Constants.UPDATE_PLAYER_POSITION_INTERVAL
 import com.plcoding.spotifycloneyt.other.exoplayer.MusicService
 import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
 import com.plcoding.spotifycloneyt.other.exoplayer.currentPlaybackPosition
-import com.plcoding.spotifycloneyt.other.Constants.UPDATE_PLAYER_POSITION_INTERVAL
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SongViewModel @ViewModelInject constructor(
+class SongViewModel @Inject constructor(
     musicServiceConnection: MusicServiceConnection
 ) : ViewModel() {
 
@@ -30,9 +30,9 @@ class SongViewModel @ViewModelInject constructor(
 
     private fun updateCurrentPlayerPosition() {
         viewModelScope.launch {
-            while(true) {
+            while (true) {
                 val pos = playbackState.value?.currentPlaybackPosition
-                if(curPlayerPosition.value != pos) {
+                if (curPlayerPosition.value != pos) {
                     _curPlayerPosition.postValue(pos)
                     _curSongDuration.postValue(MusicService.curSongDuration)
                 }

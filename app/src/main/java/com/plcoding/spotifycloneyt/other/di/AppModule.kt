@@ -4,18 +4,19 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.View.adapters.SwipeSongAdapter
 import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Singleton
@@ -27,6 +28,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideSwipeSongAdapter() = SwipeSongAdapter()
+
 
     @Singleton
     @Provides

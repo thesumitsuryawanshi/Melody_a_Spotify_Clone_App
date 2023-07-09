@@ -15,6 +15,7 @@ import com.plcoding.spotifycloneyt.other.exoplayer.toSong
 import com.plcoding.spotifycloneyt.other.Status.SUCCESS
 import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
 import com.plcoding.spotifycloneyt.Viewmodels.SongViewModel
+import com.plcoding.spotifycloneyt.databinding.FragmentSongBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_song.*
 import java.text.SimpleDateFormat
@@ -23,6 +24,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SongFragment : Fragment(R.layout.fragment_song) {
+
+    lateinit var binding: FragmentSongBinding
 
     @Inject
     lateinit var glide: RequestManager
@@ -41,7 +44,7 @@ class SongFragment : Fragment(R.layout.fragment_song) {
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         subscribeToObservers()
 
-        ivPlayPauseDetail.setOnClickListener {
+        binding.ivPlayPauseDetail.setOnClickListener {
             curPlayingSong?.let {
                 mainViewModel.playOrToggleSong(it, true)
             }
@@ -104,7 +107,7 @@ class SongFragment : Fragment(R.layout.fragment_song) {
         }
         mainViewModel.playbackState.observe(viewLifecycleOwner) {
             playbackState = it
-            ivPlayPauseDetail.setImageResource(
+            binding.ivPlayPauseDetail.setImageResource(
                 if(playbackState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
             )
             seekBar.progress = it?.position?.toInt() ?: 0

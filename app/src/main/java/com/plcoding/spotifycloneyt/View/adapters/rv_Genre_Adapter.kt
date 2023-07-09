@@ -4,8 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.databinding.HRvCategoriesBinding
 import javax.inject.Inject
 
@@ -36,13 +39,11 @@ constructor
             .load(_currentImg)
             .into(holder.Img)
 
-        holder.itemView.setOnClickListener {
-
-            
-            Toast.makeText(context, "App working", Toast.LENGTH_SHORT).show()
-
+        holder.itemView.setOnClickListener {View->
+            Navigation.findNavController(View)
+                .navigate(R.id.globalActionToexploreSongsFrag)
+            Snackbar.make(View, _Cname, Snackbar.LENGTH_LONG).show()
         }
-
     }
 
     override fun getItemCount(): Int {
