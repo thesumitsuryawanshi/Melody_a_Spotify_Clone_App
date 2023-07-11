@@ -1,7 +1,9 @@
 package com.plcoding.spotifycloneyt.View.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,15 +15,23 @@ import com.plcoding.spotifycloneyt.View.adapters.SongAdapter
 import com.plcoding.spotifycloneyt.View.adapters.rv_Genre_Adapter
 import com.plcoding.spotifycloneyt.View.adapters.rv_Language_Adapter
 import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
+import com.plcoding.spotifycloneyt.Viewmodels.ViewModelFactory
 import com.plcoding.spotifycloneyt.databinding.FragmentHomeBinding
 import com.plcoding.spotifycloneyt.other.Status
+import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongCLicked {
+class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked {
 
-    lateinit var mainViewModel: MainViewModel
+
+    private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var musicServiceConnection: MusicServiceConnection
+
+
 
     @Inject
     lateinit var glide: RequestManager
@@ -31,12 +41,23 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongCLicked {
 
     lateinit var binding: FragmentHomeBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+          mainViewModel = ViewModelProvider(this, ViewModelFactory( musicServiceConnection)).get(MainViewModel::class.java)
+
+
+
         setupRecyclerView()
         subscribeToObservers()
-
         RV_Language()
         RV_genre()
     }
@@ -64,6 +85,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongCLicked {
 
     private fun RV_Language() {
         val LanguageName = listOf("English", "Panjabi", "Hindi", "Marathi", "Korean")
+
 
         val imgList = listOf(
             R.drawable.eng,
@@ -100,5 +122,4 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongCLicked {
     override fun SongCLicked(song: Song) {
         mainViewModel.playOrToggleSong(song)
     }
-
 }

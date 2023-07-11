@@ -17,7 +17,6 @@ import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
 import com.plcoding.spotifycloneyt.Viewmodels.SongViewModel
 import com.plcoding.spotifycloneyt.databinding.FragmentSongBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_song.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -50,7 +49,7 @@ class SongFragment : Fragment(R.layout.fragment_song) {
             }
         }
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if(fromUser) {
                     setCurPlayerTimeToTextView(progress.toLong())
@@ -69,19 +68,19 @@ class SongFragment : Fragment(R.layout.fragment_song) {
             }
         })
 
-        ivSkipPrevious.setOnClickListener {
+        binding.ivSkipPrevious.setOnClickListener {
             mainViewModel.skipToPreviousSong()
         }
 
-        ivSkip.setOnClickListener {
+        binding.ivSkip.setOnClickListener {
             mainViewModel.skipToNextSong()
         }
     }
 
     private fun updateTitleAndSongImage(song: Song) {
         val title = "${song.title} - ${song.subTitle}"
-        tvSongName.text = title
-        glide.load(song.imgUrl).into(ivSongImage)
+        binding.tvSongName.text = title
+        glide.load(song.imgUrl).into(binding.ivSongImage)
     }
 
     private fun subscribeToObservers() {
@@ -110,24 +109,24 @@ class SongFragment : Fragment(R.layout.fragment_song) {
             binding.ivPlayPauseDetail.setImageResource(
                 if(playbackState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
             )
-            seekBar.progress = it?.position?.toInt() ?: 0
+            binding.seekBar.progress = it?.position?.toInt() ?: 0
         }
         songViewModel.curPlayerPosition.observe(viewLifecycleOwner) {
             if(shouldUpdateSeekbar) {
-                seekBar.progress = it.toInt()
+                binding.seekBar.progress = it.toInt()
                 setCurPlayerTimeToTextView(it)
             }
         }
         songViewModel.curSongDuration.observe(viewLifecycleOwner) {
-            seekBar.max = it.toInt()
+            binding.seekBar.max = it.toInt()
             val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
-            tvSongDuration.text = dateFormat.format(it)
+            binding.tvSongDuration.text = dateFormat.format(it)
         }
     }
 
     private fun setCurPlayerTimeToTextView(ms: Long) {
         val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
-        tvCurTime.text = dateFormat.format(ms)
+        binding.tvCurTime.text = dateFormat.format(ms)
     }
 }
 

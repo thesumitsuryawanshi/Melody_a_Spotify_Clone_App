@@ -1,4 +1,4 @@
-package com.plcoding.spotifycloneyt.other.di
+package com.plcoding.spotifycloneyt.Model.data.di
 
 import android.content.Context
 import com.google.android.exoplayer2.C

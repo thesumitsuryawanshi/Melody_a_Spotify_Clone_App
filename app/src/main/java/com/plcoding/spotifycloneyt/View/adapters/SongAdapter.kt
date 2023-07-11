@@ -1,6 +1,5 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +9,8 @@ import com.plcoding.spotifycloneyt.databinding.ListItemBinding
 import javax.inject.Inject
 
 class SongAdapter @Inject constructor(
-    val glide: RequestManager, val songs: List<Song>, private val listener: SongCLicked?
+    val glide: RequestManager, val songs: List<Song>, private val listener: SongsCLicked?
 ) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
-
 
     lateinit var binding: ListItemBinding
 
@@ -27,10 +25,9 @@ class SongAdapter @Inject constructor(
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            binding.tvPrimary.text = song.title
-            binding.tvSecondary.text = song.subTitle
-            glide.load(song.imgUrl).into(binding.ivItemImage)
-
+            holder.name.text = song.title
+            holder.subtitle.text = song.subTitle
+            glide.load(song.imgUrl).into(holder.Img)
 
 
             holder.itemView.rootView.setOnClickListener {
@@ -48,16 +45,15 @@ class SongAdapter @Inject constructor(
     class SongViewHolder(binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var name = binding.tvPrimary
-        var Img = binding.tvSecondary
+        var subtitle = binding.tvSecondary
+        var Img = binding.ivItemImage
         var rootView = binding.root
     }
 
-    interface SongCLicked {
+    interface SongsCLicked {
 
-        @SuppressLint("NotConstructor")
-        fun SongCLicked(song: Song){
+        fun SongCLicked(song: Song) {
 
         }
     }
-
 }

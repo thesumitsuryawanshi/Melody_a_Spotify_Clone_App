@@ -1,7 +1,11 @@
 package com.plcoding.spotifycloneyt.other.exoplayer.callbacks
 
 import android.app.Notification
+import android.app.Service
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.plcoding.spotifycloneyt.other.exoplayer.MusicService
@@ -11,10 +15,12 @@ class MusicPlayerNotificationListener(
     private val musicService: MusicService
 ) : PlayerNotificationManager.NotificationListener {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {
         super.onNotificationCancelled(notificationId, dismissedByUser)
         musicService.apply {
-            stopForeground(true)
+//            stopForeground(true)
+            stopForeground(Service.STOP_FOREGROUND_REMOVE)
             isForegroundService = false
             stopSelf()
         }

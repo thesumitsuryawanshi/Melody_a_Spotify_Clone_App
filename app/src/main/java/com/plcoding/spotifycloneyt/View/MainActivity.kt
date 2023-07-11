@@ -2,13 +2,12 @@ package com.plcoding.spotifycloneyt.View
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.RequestManager
 import com.google.android.material.snackbar.Snackbar
@@ -16,20 +15,26 @@ import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.View.adapters.SwipeSongAdapter
 import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
+import com.plcoding.spotifycloneyt.Viewmodels.ViewModelFactory
 import com.plcoding.spotifycloneyt.databinding.ActivityMainBinding
 import com.plcoding.spotifycloneyt.other.Status.*
+import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
 import com.plcoding.spotifycloneyt.other.exoplayer.isPlaying
 import com.plcoding.spotifycloneyt.other.exoplayer.toSong
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
 
-    private val mainViewModel: MainViewModel by viewModels()
+
+//    private var mainViewModel: MainViewModel by viewModels()
+
+    lateinit var mainViewModel: MainViewModel
 
     @Inject
     lateinit var swipeSongAdapter: SwipeSongAdapter
+
 
     @Inject
     lateinit var glide: RequestManager
@@ -40,13 +45,29 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var musicServiceConnection: MusicServiceConnection
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        getSupportActionBar()?.hide()
+
+        setContentView(binding.root)
+
+
+        mainViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(musicServiceConnection)
+        ).get(MainViewModel::class.java)
+
+
         subscribeToObservers()
 
         binding.vpSong.adapter = swipeSongAdapter
-
         binding.vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -57,20 +78,28 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
         binding.ivPlayPause.setOnClickListener {
             curPlayingSong?.let {
                 mainViewModel.playOrToggleSong(it, true)
             }
         }
 
-        swipeSongAdapter.setItemClickListener {
-            findNavController(binding.rootLayout).navigate(R.id.globalActionToSongFragment)
+//        SwipeSongAdapter.setItemClickListener {
+//        }
+
+        fun SwipeSongAdapter.SwipeSongsCLicked() {
+            findNavController(binding.root).navigate(R.id.globalActionToSongFragment)
+
         }
 
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        setupActionBarWithNavController(navController)
 
 
-        binding.rootLayout.findNavController().addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.songFragment -> hideBottomBar()
                 R.id.homeFragment -> showBottomBar()
@@ -105,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                 when (result.status) {
                     SUCCESS -> {
                         result.data?.let { songs ->
-                            swipeSongAdapter.songs = songs
+                            SwipeSongAdapter(glide, songs, this)
                             if (songs.isNotEmpty()) {
                                 glide.load((curPlayingSong ?: songs[0]).imgUrl)
                                     .into(binding.ivCurSongImage)
