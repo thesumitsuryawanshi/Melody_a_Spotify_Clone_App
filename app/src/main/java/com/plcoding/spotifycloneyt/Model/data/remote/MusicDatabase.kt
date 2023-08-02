@@ -31,8 +31,6 @@ class MusicDatabase {
             e.printStackTrace()
         }
 
-        Log.d("mytag", "data in musicDatabase list size " + MusicList.size)
-
         return MusicList
     }
 }

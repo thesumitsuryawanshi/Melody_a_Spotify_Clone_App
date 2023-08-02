@@ -1,5 +1,6 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
+import android.util.Log
 import androidx.recyclerview.widget.AsyncListDiffer
 import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
@@ -33,6 +34,7 @@ import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
@@ -41,7 +43,7 @@ import javax.inject.Inject
 
 
 class SwipeSongAdapter @Inject constructor(
-    val glide: RequestManager, val songs: List<Song>, private val listener: SwipeSongsCLicked?
+    val glide: RequestManager, val songs: List<Song>, private val listener: SwipeSongsCLicked
 ) : RecyclerView.Adapter<SwipeSongAdapter.SwipeSongViewHolder>() {
 
     lateinit var binding: SwipeItemBinding
@@ -61,8 +63,8 @@ class SwipeSongAdapter @Inject constructor(
             holder.name.text = text
 
             holder.itemView.rootView.setOnClickListener {
-
-                listener?.SwipeSongCLicked(song)
+                listener.SwipeSongCLicked(song)
+                Toast.makeText(holder.itemView.context, "swipe Song Clicked", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -71,22 +73,17 @@ class SwipeSongAdapter @Inject constructor(
         return songs.size
     }
 
-
     class SwipeSongViewHolder(binding: SwipeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var name = binding.tvPrimary
-
-    }
-
-
-    interface SwipeSongsCLicked {
-
-        fun SwipeSongCLicked(song: Song) {
-
-        }
     }
 
 }
+    interface SwipeSongsCLicked {
+        fun SwipeSongCLicked(song: Song) {
+        }
+    }
+
 
 
 

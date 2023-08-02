@@ -2,6 +2,8 @@ package com.plcoding.spotifycloneyt.View
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.View.adapters.SwipeSongAdapter
+import com.plcoding.spotifycloneyt.View.adapters.SwipeSongsCLicked
 import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
 import com.plcoding.spotifycloneyt.Viewmodels.ViewModelFactory
 import com.plcoding.spotifycloneyt.databinding.ActivityMainBinding
@@ -25,12 +28,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
+class MainActivity : AppCompatActivity(), SwipeSongsCLicked {
 
-
-//    private var mainViewModel: MainViewModel by viewModels()
 
     lateinit var mainViewModel: MainViewModel
+//    lateinit var mainViewModel: MainViewModel
 
     @Inject
     lateinit var swipeSongAdapter: SwipeSongAdapter
@@ -48,7 +50,6 @@ class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
     @Inject
     lateinit var musicServiceConnection: MusicServiceConnection
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
             this,
             ViewModelFactory(musicServiceConnection)
         ).get(MainViewModel::class.java)
+//         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
 
         subscribeToObservers()
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
         binding.vpSong.adapter = swipeSongAdapter
         binding.vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                Toast.makeText(applicationContext, "okay", Toast.LENGTH_SHORT).show()
                 super.onPageSelected(position)
                 if (playbackState?.isPlaying == true) {
                     mainViewModel.playOrToggleSong(swipeSongAdapter.songs[position])
@@ -87,17 +90,13 @@ class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
 //        SwipeSongAdapter.setItemClickListener {
 //        }
 
-        fun SwipeSongAdapter.SwipeSongsCLicked() {
-            findNavController(binding.root).navigate(R.id.globalActionToSongFragment)
 
-        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         setupActionBarWithNavController(navController)
-
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -186,4 +185,8 @@ class MainActivity : AppCompatActivity(), SwipeSongAdapter.SwipeSongsCLicked {
         }
     }
 
+    override fun SwipeSongCLicked(song: Song) {
+        Toast.makeText(this,"SwipeSongAdapter click is working ",Toast.LENGTH_SHORT).show()
+        findNavController(binding.root).navigate(R.id.globalActionToSongFragment)
+    }
 }

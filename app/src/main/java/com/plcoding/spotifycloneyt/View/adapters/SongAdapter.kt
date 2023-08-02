@@ -1,5 +1,6 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +25,12 @@ class SongAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
+
         holder.itemView.apply {
             holder.name.text = song.title
             holder.subtitle.text = song.subTitle
             glide.load(song.imgUrl).into(holder.Img)
+
 
 
             holder.itemView.rootView.setOnClickListener {

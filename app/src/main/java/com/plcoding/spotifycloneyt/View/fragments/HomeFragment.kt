@@ -1,6 +1,8 @@
 package com.plcoding.spotifycloneyt.View.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,12 +28,11 @@ import javax.inject.Inject
 class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked {
 
 
-    private lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
+
 
     @Inject
     lateinit var musicServiceConnection: MusicServiceConnection
-
-
 
     @Inject
     lateinit var glide: RequestManager
@@ -48,37 +49,45 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-          mainViewModel = ViewModelProvider(this, ViewModelFactory( musicServiceConnection)).get(MainViewModel::class.java)
 
 
 
+        mainViewModel = ViewModelProvider(requireActivity(),ViewModelFactory(musicServiceConnection)).get(MainViewModel::class.java)
         setupRecyclerView()
-        subscribeToObservers()
+
+//        subscribeToObservers()
         RV_Language()
         RV_genre()
     }
 
 
-    private fun setupRecyclerView() = binding.rvAllSongs.apply {
-        adapter = songAdapter
-        layoutManager = LinearLayoutManager(requireContext())
-    }
 
-    private fun subscribeToObservers() {
+     fun setupRecyclerView() {
+
         mainViewModel.mediaItems.observe(viewLifecycleOwner) { result ->
+
             when (result.status) {
                 Status.SUCCESS -> {
                     binding.allSongsProgressBar.isVisible = false
                     result.data?.let { songs ->
-                        SongAdapter(glide, songs, this)
+                        val adapter = SongAdapter(glide, songs, this@HomeFragment)
+                        binding.rvAllSongs.adapter = adapter
+                        binding.rvAllSongs.layoutManager =
+                            LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.VERTICAL,
+                                false)
                     }
                 }
                 Status.ERROR -> Unit
-                Status.LOADING -> binding.allSongsProgressBar.isVisible = true
+                Status.LOADING ->{
+                    binding.allSongsProgressBar.isVisible = true
+                }
             }
         }
     }
@@ -122,4 +131,5 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked 
     override fun SongCLicked(song: Song) {
         mainViewModel.playOrToggleSong(song)
     }
+
 }

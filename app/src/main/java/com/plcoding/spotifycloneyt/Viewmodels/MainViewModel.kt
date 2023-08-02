@@ -2,6 +2,7 @@ package com.plcoding.spotifycloneyt.Viewmodels
 
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +28,7 @@ class MainViewModel @Inject constructor(
 
     init {
         _mediaItems.postValue(Resource.loading(null))
+
         musicServiceConnection.subscribe(
             MEDIA_ROOT_ID,
             object : MediaBrowserCompat.SubscriptionCallback() {
@@ -80,25 +82,8 @@ class MainViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        musicServiceConnection.unsubscribe(
-            MEDIA_ROOT_ID,
-            object : MediaBrowserCompat.SubscriptionCallback() {})
+//        musicServiceConnection.unsubscribe(
+//            MEDIA_ROOT_ID,
+//            object : MediaBrowserCompat.SubscriptionCallback() {})
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
