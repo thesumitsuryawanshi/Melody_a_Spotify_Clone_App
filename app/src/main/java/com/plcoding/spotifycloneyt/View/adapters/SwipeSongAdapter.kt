@@ -40,8 +40,6 @@ import com.bumptech.glide.RequestManager
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import javax.inject.Inject
 
-
-
 class SwipeSongAdapter @Inject constructor(
     val glide: RequestManager, val songs: List<Song>, private val listener: SwipeSongsCLicked
 ) : RecyclerView.Adapter<SwipeSongAdapter.SwipeSongViewHolder>() {
@@ -52,6 +50,8 @@ class SwipeSongAdapter @Inject constructor(
 
         val view = SwipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewholder = SwipeSongViewHolder(view)
+        Toast.makeText(parent.context, "SwipeSongAdapter started", Toast.LENGTH_SHORT).show()
+
         return viewholder
     }
 
@@ -70,6 +70,7 @@ class SwipeSongAdapter @Inject constructor(
     }
 
     override fun getItemCount(): Int {
+        Log.d("mytag", "songs count in SwipesongAdapter" + songs.size)
         return songs.size
     }
 
@@ -78,26 +79,19 @@ class SwipeSongAdapter @Inject constructor(
         var name = binding.tvPrimary
     }
 
-}
     interface SwipeSongsCLicked {
         fun SwipeSongCLicked(song: Song) {
+
         }
     }
 
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//interface SwipeSongsCLicked {
+//    fun SwipeSongCLicked(song: Song) {
+//
+//    }
+//
+//    }
