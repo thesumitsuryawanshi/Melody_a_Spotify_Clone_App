@@ -226,6 +226,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
             }
         })
 
+
+
         binding.ivPlayPause.setOnClickListener {
             curPlayingSong?.let {
                 mainViewModel.playOrToggleSong(it, true)
