@@ -30,7 +30,7 @@ class SongFragment : Fragment(R.layout.fragment_song) {
     lateinit var glide: RequestManager
 
     private lateinit var mainViewModel: MainViewModel
-    private val songViewModel: SongViewModel by viewModels()
+    private lateinit var songViewModel: SongViewModel
 
     private var curPlayingSong: Song? = null
 
@@ -40,7 +40,11 @@ class SongFragment : Fragment(R.layout.fragment_song) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        songViewModel = ViewModelProvider(requireActivity()).get(SongViewModel::class.java)
+
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
         subscribeToObservers()
 
         binding.ivPlayPauseDetail.setOnClickListener {
@@ -113,7 +117,7 @@ class SongFragment : Fragment(R.layout.fragment_song) {
         }
         songViewModel.curPlayerPosition.observe(viewLifecycleOwner) {
             if (shouldUpdateSeekbar) {
-                binding.seekBar.progress = it.toInt()
+                binding.seekBar.progress = it!!.toInt()
                 setCurPlayerTimeToTextView(it)
             }
         }

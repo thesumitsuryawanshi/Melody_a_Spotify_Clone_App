@@ -41,7 +41,7 @@ import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import javax.inject.Inject
 
 class SwipeSongAdapter @Inject constructor(
-    val glide: RequestManager, val songs: List<Song>, private val listener: SwipeSongsCLicked
+    var glide: RequestManager, var songs: List<Song>, private val listener: SwipeSongsCLicked
 ) : RecyclerView.Adapter<SwipeSongAdapter.SwipeSongViewHolder>() {
 
     lateinit var binding: SwipeItemBinding
@@ -84,7 +84,6 @@ class SwipeSongAdapter @Inject constructor(
 
         }
     }
-
 }
 
 

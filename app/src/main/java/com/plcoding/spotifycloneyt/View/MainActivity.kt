@@ -42,9 +42,5 @@ class MainActivity : AppCompatActivity() {
             this,
             ViewModelFactory(musicServiceConnection)
         ).get(MainViewModel::class.java)
-
-
     }
-
-
 }

@@ -32,13 +32,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
-    SwipeSongAdapter.SwipeSongsCLicked {
+class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked, SwipeSongAdapter.SwipeSongsCLicked {
 
 
     lateinit var mainViewModel: MainViewModel
     lateinit var binding: FragmentHomeBinding
-
 
     @Inject
     lateinit var swipeSongAdapter: SwipeSongAdapter
@@ -68,13 +66,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel =
-            ViewModelProvider(requireActivity(), ViewModelFactory(musicServiceConnection)).get(
-                MainViewModel::class.java
-            )
+        mainViewModel =ViewModelProvider(requireActivity(), ViewModelFactory(musicServiceConnection)).get( MainViewModel::class.java )
+
+
         setupRecyclerView()
         RV_Language()
         RV_genre()
+
+
+
         subscribeToObservers()
         settingUpVP()
 
@@ -150,14 +150,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
                     Status.SUCCESS -> {
                         result.data?.let { songs ->
 
+                            val swipeSongAdapter  =   SwipeSongAdapter(glide, songs, this)
+                            binding.vpSong.adapter = swipeSongAdapter
+
                             // data is going correctly in SwipeSongAdapter
-
                             Log.d("mytag", "songs count in Mainactivity" + songs.size)
-
                             SwipeSongAdapter(glide, songs, this)
 
+
                             if (songs.isNotEmpty()) {
-                                glide.load((curPlayingSong ?: songs[4]).imgUrl)
+                                glide.load((curPlayingSong ?: songs[0]).imgUrl)
                                     .into(binding.ivCurSongImage)
                             }
                             switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
@@ -218,7 +220,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
                     mainViewModel.playOrToggleSong(swipeSongAdapter.songs[position])
                     //Todo: check if this viewmodel is working or not.
                 } else {
-                    curPlayingSong = swipeSongAdapter.songs[position]
+                     // curPlayingSong = swipeSongAdapter.songs[position]
+                    //recent changes ara made in abv line
                 }
             }
         })
@@ -258,14 +261,17 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
         }
     }
 
-
     override fun SwipeSongCLicked(song: Song) {
         Toast.makeText( requireContext(),"swipeSongAdapter SwipeSong Click listener working \n Heading to SongFrag", Toast.LENGTH_SHORT ).show()
-        findNavController().navigate(R.id.globalActionToSongFragment)
+//        findNavController().navigate(R.id.globalActionToSongFragment)
+        //todo : navigation towards SongFrag not working
     }
 
     override fun SongCLicked(song: Song) {
+        Toast.makeText( requireContext(),"SongAdapter Click listener working \n Heading to SongFrag", Toast.LENGTH_SHORT ).show()
         mainViewModel.playOrToggleSong(song)
-    }
+//        findNavController().navigate(R.id.globalActionToSongFragment)
+        //todo : navigation towards SongFrag not working
 
+    }
 }
