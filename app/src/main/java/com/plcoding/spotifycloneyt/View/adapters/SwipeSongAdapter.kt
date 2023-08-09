@@ -58,6 +58,8 @@ class SwipeSongAdapter @Inject constructor(
     }
 
 
+
+
     override fun onBindViewHolder(holder: SwipeSongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
