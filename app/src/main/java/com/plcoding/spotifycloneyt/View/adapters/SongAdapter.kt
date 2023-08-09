@@ -34,7 +34,6 @@ class SongAdapter @Inject constructor(
 
 
             holder.itemView.rootView.setOnClickListener {
-
                 listener?.SongCLicked(song)
             }
         }

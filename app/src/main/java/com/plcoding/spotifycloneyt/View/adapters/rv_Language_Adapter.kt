@@ -1,6 +1,7 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.plcoding.spotifycloneyt.R
 import com.plcoding.spotifycloneyt.databinding.HRvCategoriesBinding
 
@@ -26,19 +28,21 @@ class rv_Language_Adapter(
     }
 
     override fun onBindViewHolder(holder: LanguageViewHolder, position: Int) {
-        val _Cname = category[position]
+        val _Lname = category[position]
         val _currentImg = ImgList[position]
 
-        holder.name.text = _Cname
+        holder.name.text = _Lname
 
         Glide.with(context)
             .load(_currentImg)
             .into(holder.Img)
 
         holder.itemView.setOnClickListener {View->
-            Snackbar.make(View, _Cname, Snackbar.LENGTH_LONG).show()
+            val bundle = Bundle()
+            bundle.putString("$_Lname", Gson().toJson(_Lname))
+
             Navigation.findNavController(View)
-                .navigate(R.id.globalActionToexploreSongsFrag)
+                .navigate(R.id.globalActionToexploreSongsFrag , bundle)
         }
 
     }

@@ -1,5 +1,6 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
+import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.AsyncListDiffer
 import com.plcoding.spotifycloneyt.R
@@ -35,8 +36,10 @@ import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.google.gson.Gson
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import javax.inject.Inject
 
@@ -50,7 +53,6 @@ class SwipeSongAdapter @Inject constructor(
 
         val view = SwipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewholder = SwipeSongViewHolder(view)
-        Toast.makeText(parent.context, "SwipeSongAdapter started", Toast.LENGTH_SHORT).show()
 
         return viewholder
     }
@@ -64,7 +66,11 @@ class SwipeSongAdapter @Inject constructor(
 
             holder.itemView.rootView.setOnClickListener {
                 listener.SwipeSongCLicked(song)
+
+                val bundle = Bundle()
+                bundle.putString("_Currentsong", Gson().toJson(song))
                 Toast.makeText(holder.itemView.context, "swipe Song Clicked", Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(it).navigate(R.id.globalActionToSongFragment, bundle)
             }
         }
     }

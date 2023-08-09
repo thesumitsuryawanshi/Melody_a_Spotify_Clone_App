@@ -21,6 +21,8 @@ import com.plcoding.spotifycloneyt.View.adapters.SongAdapter
 import com.plcoding.spotifycloneyt.View.adapters.SwipeSongAdapter
 import com.plcoding.spotifycloneyt.View.adapters.rv_Genre_Adapter
 import com.plcoding.spotifycloneyt.View.adapters.rv_Language_Adapter
+import com.plcoding.spotifycloneyt.Viewmodels.LangViewModelFactory
+import com.plcoding.spotifycloneyt.Viewmodels.LanguageViewModel
 import com.plcoding.spotifycloneyt.Viewmodels.MainViewModel
 import com.plcoding.spotifycloneyt.Viewmodels.ViewModelFactory
 import com.plcoding.spotifycloneyt.databinding.FragmentHomeBinding
@@ -29,6 +31,7 @@ import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
 import com.plcoding.spotifycloneyt.other.exoplayer.isPlaying
 import com.plcoding.spotifycloneyt.other.exoplayer.toSong
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
 
 
     lateinit var mainViewModel: MainViewModel
+    lateinit var languageViewModel: LanguageViewModel
     lateinit var binding: FragmentHomeBinding
 
     @Inject
@@ -68,12 +72,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
         super.onViewCreated(view, savedInstanceState)
         mainViewModel =ViewModelProvider(requireActivity(), ViewModelFactory(musicServiceConnection)).get( MainViewModel::class.java )
 
-
         setupRecyclerView()
         RV_Language()
         RV_genre()
-
-
 
         subscribeToObservers()
         settingUpVP()
@@ -106,6 +107,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
         }
     }
 
+    private fun RV_genre() {
+        val GenreName = listOf("Love", "Metal", "Romantic", "90's-Hits", "OLD-is-GOLD")
+        val imgList = listOf(
+            R.drawable.love,
+            R.drawable.metal,
+            R.drawable.romance,
+            R.drawable.nienteens_hits,
+            R.drawable.goldenera,
+        )
+        val adapter = rv_Genre_Adapter(GenreName, imgList, requireContext())
+        binding.rvLanguage.adapter = adapter
+        binding.rvLanguage.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
     private fun RV_Language() {
         val LanguageName = listOf("English", "Panjabi", "Hindi", "Marathi", "Korean")
 
@@ -124,22 +139,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun RV_genre() {
-        val GenreName = listOf("Love", "Metal", "Romantic", "90's Hits", "OLD is GOLD")
 
-        val imgList = listOf(
-            R.drawable.love,
-            R.drawable.metal,
-            R.drawable.romance,
-            R.drawable.nienteens_hits,
-            R.drawable.goldenera,
-        )
-
-        val adapter = rv_Genre_Adapter(GenreName, imgList, requireContext())
-        binding.rvLanguage.adapter = adapter
-        binding.rvLanguage.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
 
     //-------------------------------MainActivity data---------------------------------
 
@@ -211,22 +211,22 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
 
     private fun settingUpVP() {
 
-        binding.vpSong.adapter = swipeSongAdapter
+        vpSong.adapter = swipeSongAdapter
 
-        binding.vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (playbackState?.isPlaying == true) {
-                    mainViewModel.playOrToggleSong(swipeSongAdapter.songs[position])
-                    //Todo: check if this viewmodel is working or not.
-                } else {
-                     // curPlayingSong = swipeSongAdapter.songs[position]
-                    //recent changes ara made in abv line
+
+                val songsList = swipeSongAdapter.songs
+                if (songsList.isNotEmpty() && position >= 0 && position < songsList.size) {
+                    if (playbackState?.isPlaying == true) {
+                        mainViewModel.playOrToggleSong(songsList[position])
+                    } else {
+                        curPlayingSong = songsList[position]
+                    }
                 }
             }
         })
-
-
 
         binding.ivPlayPause.setOnClickListener {
             curPlayingSong?.let {
@@ -270,10 +270,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
     }
 
     override fun SongCLicked(song: Song) {
-        Toast.makeText( requireContext(),"SongAdapter Click listener working \n Heading to SongFrag", Toast.LENGTH_SHORT ).show()
         mainViewModel.playOrToggleSong(song)
 //        findNavController().navigate(R.id.globalActionToSongFragment)
         //todo : navigation towards SongFrag not working
-
     }
 }
