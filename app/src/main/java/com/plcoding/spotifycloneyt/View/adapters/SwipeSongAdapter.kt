@@ -1,16 +1,10 @@
 package com.plcoding.spotifycloneyt.View.adapters
 
-import android.os.Bundle
-import android.util.Log
-import androidx.recyclerview.widget.AsyncListDiffer
-import com.plcoding.spotifycloneyt.R
-import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
-
 //class OLDSwipeSongAdapter : BaseSongAdapter(R.layout.swipe_item) {
 //
 //
 //
-//    override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
+//    override fun onBindViewHolder(holder: SongViewHolder, position: Int) {a
 //        val song = songs[position]
 //        holder.itemView.apply {
 //            val text = "${song.title} - ${song.subTitle}"
@@ -30,17 +24,18 @@ import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
 //
 //
 //--------------------------------------------------------------------------------------------------------------------------------
-//
 
-
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.google.gson.Gson
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
+import com.plcoding.spotifycloneyt.R
+import com.plcoding.spotifycloneyt.databinding.SwipeItemBinding
 import javax.inject.Inject
 
 class SwipeSongAdapter @Inject constructor(
@@ -58,20 +53,16 @@ class SwipeSongAdapter @Inject constructor(
     }
 
 
-
-
     override fun onBindViewHolder(holder: SwipeSongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            val text = "${song.title} - ${song.subTitle}"
-            holder.name.text = text
+            holder.name.text = song.title + "\n" + song.subTitle
 
             holder.itemView.rootView.setOnClickListener {
                 listener.SwipeSongCLicked(song)
 
                 val bundle = Bundle()
                 bundle.putString("_Currentsong", Gson().toJson(song))
-                Toast.makeText(holder.itemView.context, "swipe Song Clicked", Toast.LENGTH_SHORT).show()
                 Navigation.findNavController(it).navigate(R.id.globalActionToSongFragment, bundle)
             }
         }
@@ -93,12 +84,3 @@ class SwipeSongAdapter @Inject constructor(
         }
     }
 }
-
-
-//
-//interface SwipeSongsCLicked {
-//    fun SwipeSongCLicked(song: Song) {
-//
-//    }
-//
-//    }

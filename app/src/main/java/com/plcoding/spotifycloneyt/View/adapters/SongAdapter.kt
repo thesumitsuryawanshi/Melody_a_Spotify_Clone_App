@@ -31,8 +31,6 @@ class SongAdapter @Inject constructor(
             holder.subtitle.text = song.subTitle
             glide.load(song.imgUrl).into(holder.Img)
 
-
-
             holder.itemView.rootView.setOnClickListener {
                 listener?.SongCLicked(song)
             }

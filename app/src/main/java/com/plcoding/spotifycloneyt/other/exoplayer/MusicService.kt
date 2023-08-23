@@ -107,7 +107,7 @@ class MusicService : MediaBrowserServiceCompat() {
         }
     }
 
-    private fun preparePlayer(
+     fun preparePlayer(
         songs: List<MediaMetadataCompat>,
         itemToPlay: MediaMetadataCompat?,
         playNow: Boolean

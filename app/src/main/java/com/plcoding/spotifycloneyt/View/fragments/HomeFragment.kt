@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -260,6 +261,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
         if (newItemIndex != -1) {
             binding.vpSong.currentItem = newItemIndex
             curPlayingSong = song
+
         }
     }
 
@@ -271,6 +273,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SongAdapter.SongsCLicked,
 
     override fun SongCLicked(song: Song) {
         mainViewModel.playOrToggleSong(song)
+
 //        findNavController().navigate(R.id.globalActionToSongFragment)
         //todo : navigation towards SongFrag not working
     }

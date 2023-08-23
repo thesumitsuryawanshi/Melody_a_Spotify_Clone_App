@@ -2,18 +2,17 @@ package com.plcoding.spotifycloneyt.Viewmodels
 
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.plcoding.spotifycloneyt.Model.data.entities.Song
 import com.plcoding.spotifycloneyt.Model.data.repository
 import com.plcoding.spotifycloneyt.other.Constants.MEDIA_ROOT_ID
 import com.plcoding.spotifycloneyt.other.Resource
-import com.plcoding.spotifycloneyt.other.exoplayer.MusicServiceConnection
-import com.plcoding.spotifycloneyt.other.exoplayer.isPlayEnabled
-import com.plcoding.spotifycloneyt.other.exoplayer.isPlaying
-import com.plcoding.spotifycloneyt.other.exoplayer.isPrepared
+import com.plcoding.spotifycloneyt.other.exoplayer.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -81,6 +80,7 @@ class MainViewModel @Inject constructor(
 
     }
 
+
     fun skipToNextSong() {
         musicServiceConnection.transportControls.skipToNext()
     }
@@ -112,9 +112,17 @@ class MainViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-//        musicServiceConnection.unsubscribe(
-//            MEDIA_ROOT_ID,
-//            object : MediaBrowserCompat.SubscriptionCallback() {})
+        musicServiceConnection.unsubscribe(
+            MEDIA_ROOT_ID,
+            object : MediaBrowserCompat.SubscriptionCallback() {})
     }
+
+    //my functions
+
+    fun  playComingSong(song: Song){
+
+        musicServiceConnection.transportControls.play()
+    }
+
 
 }

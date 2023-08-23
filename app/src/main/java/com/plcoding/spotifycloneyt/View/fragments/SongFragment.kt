@@ -63,7 +63,6 @@ class SongFragment : Fragment(R.layout.fragment_song) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        songViewModel = ViewModelProvider(requireActivity()).get(SongViewModel::class.java)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         songViewModel =ViewModelProvider(requireActivity(), SongViewModelFactory(musicServiceConnection)).get( SongViewModel::class.java )
 
@@ -107,6 +106,9 @@ class SongFragment : Fragment(R.layout.fragment_song) {
     }
 
     private fun dataComingFromExploreSongRV(CurrentSong:Song) {
+
+        mainViewModel.playComingSong(CurrentSong)
+//        mainViewModel.playOrToggleSong(CurrentSong,true)
         Toast.makeText(requireContext(), "${CurrentSong.title} " , Toast.LENGTH_SHORT).show()
     }
 
