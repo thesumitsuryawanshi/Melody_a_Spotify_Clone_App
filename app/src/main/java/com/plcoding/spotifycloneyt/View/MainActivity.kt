@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun hideBottomBar() {
         ivCurSongImage.isVisible = false
         vpSong.isVisible = false
