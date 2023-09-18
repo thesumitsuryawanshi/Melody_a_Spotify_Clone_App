@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
+
     @Inject
     lateinit var swipeSongAdapter: SwipeSongAdapter
 
