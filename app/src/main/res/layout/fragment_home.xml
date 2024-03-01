@@ -10,49 +10,46 @@
 
 
     <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-16dp"
+        android:layout_height="0dp"
         android:fadeScrollbars="true"
-        >
+
+        app:layout_constraintBottom_toTopOf="@+id/bottomContainer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+
+            >
 
 
-            <ProgressBar
-                android:id="@+id/allSongsProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
 
             <TextView
                 android:id="@+id/tv_Language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:fontFamily="serif"
                 android:text=" Explore Genre's "
                 android:textAlignment="textStart"
                 android:textSize="17sp"
-                android:layout_marginTop="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/rv_language"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_goneMarginLeft="5dp"
                 app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_goneMarginLeft="5dp" />
 
             <View
                 android:layout_width="135dp"
@@ -86,17 +83,14 @@
                 android:id="@+id/tv_genre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:fontFamily="serif"
                 android:text=" Explore Languages"
                 android:textAlignment="textStart"
                 android:textSize="17sp"
-                app:layout_constraintBottom_toTopOf="@+id/rv_genre"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_language"
-                app:layout_constraintVertical_bias="0.0"
                 app:layout_goneMarginLeft="5dp" />
 
             <View
@@ -118,7 +112,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@+id/allSongsProgressBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_genre"
@@ -131,9 +124,10 @@
                 android:id="@+id/tv_ExploreMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginVertical="15dp"
                 android:fontFamily="serif"
-                android:text=" Jump back in "
+                android:padding="5dp"
+                android:text="Jump back in "
                 android:textAlignment="textStart"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/rvAllSongs"
@@ -145,10 +139,10 @@
             <View
                 android:layout_width="120dp"
                 android:layout_height="2dp"
-                android:layout_margin="3dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="13dp"
                 android:background="@color/gray"
                 android:textAlignment="textStart"
+
                 app:color="@color/gray"
                 app:layout_constraintHorizontal_bias="0.01"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -159,17 +153,71 @@
                 android:id="@+id/rvAllSongs"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginTop="8dp"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
-
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ExploreMore" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_ExploreMore"
+                tools:itemCount="12" />
+
+            <ProgressBar
+                android:id="@+id/allSongsProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.85" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            >
+
+
+            <ImageView
+                android:id="@+id/ivCurSongImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpSong"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="@color/darkBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivPlayPause"
+                app:layout_constraintStart_toEndOf="@+id/ivCurSongImage">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <ImageView
+                android:id="@+id/ivPlayPause"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/darkBackground"
+                android:src="@drawable/ic_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/vpSong" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

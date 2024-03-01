@@ -21,8 +21,8 @@ class SongViewModel @Inject constructor(
     private val _curSongDuration = MutableLiveData<Long>()
     val curSongDuration: LiveData<Long> = _curSongDuration
 
-    private val _curPlayerPosition = MutableLiveData<Long>()
-    val curPlayerPosition: LiveData<Long> = _curPlayerPosition
+    private val _curPlayerPosition = MutableLiveData<Long?>()
+    val curPlayerPosition: MutableLiveData<Long?> = _curPlayerPosition
 
     init {
         updateCurrentPlayerPosition()
@@ -41,22 +41,3 @@ class SongViewModel @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

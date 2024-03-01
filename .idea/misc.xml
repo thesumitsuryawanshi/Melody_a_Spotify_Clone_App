@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -6,12 +5,12 @@
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/drawable/circle_drawable.xml" value="0.189" />
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout-land/fragment_song.xml" value="0.721875" />
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/fragment_explore_songs.xml" value="0.55" />
+        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/fragment_explore_songs.xml" value="0.33" />
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/fragment_home.xml" value="0.33" />
-        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/fragment_song.xml" value="0.5" />
+        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/fragment_song.xml" value="0.25" />
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/h_rv_categories.xml" value="0.75" />
         <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/list_item.xml" value="0.55" />
-        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/swipe_item.xml" value="0.5494791666666666" />
+        <entry key="..\:/Users/Magician/StudioProjects/Spotify_Clone_App/app/src/main/res/layout/swipe_item.xml" value="0.33" />
         <entry key="..\:/Users/sumit/AndroidStudioProjects/Melody/app/src/main/res/drawable-anydpi/ic_skip.xml" value="0.258" />
         <entry key="..\:/Users/sumit/AndroidStudioProjects/Melody/app/src/main/res/drawable-anydpi/ic_skip_previous.xml" value="0.258" />
         <entry key="..\:/Users/sumit/AndroidStudioProjects/Melody/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.258" />
@@ -31,7 +30,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

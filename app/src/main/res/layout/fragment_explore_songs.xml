@@ -7,16 +7,16 @@
     tools:context=".View.fragments.ExploreSongsFrag">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllSongs"
+        android:id="@+id/rvExploreAllSongs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item"
-        tools:itemCount="8"
-        />
+        app:layout_constraintVertical_bias="0.0"
+        tools:itemCount="10"
+        tools:listitem="@layout/list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
