@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var glide: RequestManager
 
+
+    //temp comment
+
+
     private var curPlayingSong: Song? = null
     private var playbackState: PlaybackStateCompat? = null
     lateinit var binding: ActivityMainBinding
